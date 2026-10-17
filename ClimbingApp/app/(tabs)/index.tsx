@@ -1,4 +1,3 @@
-
 import ngrokConfig from '../../ngrok_url.json';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
@@ -130,6 +129,8 @@ export default function App() {
     const [permission, requestPermission] = useCameraPermissions();
     const cameraRef = useRef<CameraView>(null);
     const [picture, setPicture] = useState<string | null>(null);
+    const [imageBase64, setImageBase64] = useState<string | null>(null);
+    const [climbId, setClimbId] = useState<string | null>(null);
     const [boxes, setBoxes] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -291,31 +292,40 @@ export default function App() {
         return response;
     };
 
+    function getServerEndpoints(path: '/detect' | '/save') {
+        const hostUri = Constants.expoConfig?.hostUri;
+        const pcIp = hostUri ? hostUri.split(':')[0] : '127.0.0.1';
+        const localUrl = `http://${pcIp}:5000${path}`;
+        const ngrokBase = (ngrokConfig.NGROK_URL || '').replace(/\/detect\/?$/, '');
+        const ngrokUrl = `${ngrokBase}${path}`;
+        return { localUrl, ngrokUrl };
+    }
+
+    async function postToServer(path: '/detect' | '/save', payload: any) {
+        const body = JSON.stringify(payload);
+        const headers = {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+        };
+        const { localUrl, ngrokUrl } = getServerEndpoints(path);
+
+        try {
+            return await fetchWithTimeout(localUrl, { method: 'POST', body, headers }, 2500);
+        } catch {
+            return await fetch(ngrokUrl, { method: 'POST', body, headers });
+        }
+    }
 
     async function detectHolds(imageUri: string) {
         try {
             const base64 = await FileSystem.readAsStringAsync(imageUri, {
                 encoding: FileSystem.EncodingType.Base64,
             });
+            setImageBase64(base64);
+            const newClimbId = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+            setClimbId(newClimbId);
 
-            const body = JSON.stringify({ image: base64 });
-            const headers = {
-                'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-            };
-
-            const hostUri = Constants.expoConfig?.hostUri;
-            const pcIp = hostUri ? hostUri.split(':')[0] : '127.0.0.1';
-            const LOCAL_URL = `http://${pcIp}:5000/detect`;
-            const NGROK_URL = ngrokConfig.NGROK_URL;
-
-            let response;
-            try {
-                response = await fetchWithTimeout(LOCAL_URL, { method: 'POST', body, headers }, 2500);
-            } catch {
-                response = await fetch(NGROK_URL, { method: 'POST', body, headers });
-            }
-
+            const response = await postToServer('/detect', { image: base64 });
             const rawText = await response.text();
             console.log("Server raw response:", rawText);
 
@@ -343,9 +353,42 @@ export default function App() {
         }
     }
 
+    async function syncCorrectionsToModel(currentBoxes: any[], triggerTrain = true) {
+        const hasCorrections = currentBoxes.some(b => b.userModified);
+        if (!hasCorrections || !imageBase64) return;
+
+        const selectedIndices = new Set<number>([
+            ...startHolds.map(h => h.index),
+            ...(topHold !== null ? [topHold] : []),
+            ...pathHolds
+        ]);
+
+        const holdsPayload = currentBoxes.map((box, idx) => ({
+            ...box,
+            isSelected: selectedIndices.has(idx),
+            userModified: !!box.userModified
+        }));
+
+        try {
+            const response = await postToServer('/save', {
+                climb_id: climbId,
+                image: imageBase64,
+                all_holds: holdsPayload,
+                corrected_holds: holdsPayload.filter(h => h.userModified),
+                trigger_train: triggerTrain
+            });
+            const result = await response.json();
+            console.log("Model feedback saved:", result);
+        } catch (err) {
+            console.warn("Could not sync hold corrections to server:", err);
+        }
+    }
+
     function hardReset() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setPicture(null);
+        setImageBase64(null);
+        setClimbId(null);
         setBoxes([]);
         softReset();
     }
@@ -389,11 +432,18 @@ export default function App() {
 
     function changeHoldType(newType: string) {
         if (editingHoldIndex === null) return;
-        const updatedBoxes = [...boxes];
-        updatedBoxes[editingHoldIndex].label = newType;
-        updatedBoxes[editingHoldIndex].userModified = true;
+        const updatedBoxes = boxes.map((box, idx) =>
+            idx === editingHoldIndex
+                ? { ...box, label: newType, userModified: true }
+                : box
+        );
         setBoxes(updatedBoxes);
         closeEditMenu();
+
+        // Save the correction immediately; trigger fine-tuning right away if on SUMMARY,
+        // or wait until the user taps "Analyze" if still reviewing on EDIT.
+        syncCorrectionsToModel(updatedBoxes, step === 'SUMMARY');
+
         if (step === 'SUMMARY') updateRouteStats(updatedBoxes);
     }
 
@@ -424,10 +474,15 @@ export default function App() {
             const midY = (py + cyPos) / 2;
 
             wallVolumes.forEach(vol => {
-                const volX = vol.x + vol.w/2;
-                const volY = vol.y + vol.h/2;
-                const distToVol = Math.sqrt(Math.pow(midX - volX, 2) + Math.pow(midY - volY, 2));
-                if (distToVol < 20) volumeAssist = 0.5;
+                const volCenterY = vol.y + vol.h/2;
+                const isBelow = volCenterY > midY;          // larger y = lower on the wall
+
+                // distance from midpoint to the volume's nearest edge, not its center
+                const nearestX = Math.max(vol.x, Math.min(midX, vol.x + vol.w));
+                const nearestY = Math.max(vol.y, Math.min(midY, vol.y + vol.h));
+                const distToVol = Math.sqrt(Math.pow(midX - nearestX, 2) + Math.pow(midY - nearestY, 2));
+
+                if (isBelow && distToVol < 20) volumeAssist = 0.5;
             });
 
             distanceMultiplier = Math.max(1.0, distanceMultiplier - volumeAssist);
@@ -494,6 +549,7 @@ export default function App() {
             animateNav('next', 'EDIT');
         } else if (step === 'EDIT') {
             updateRouteStats(boxes);
+            syncCorrectionsToModel(boxes, true);
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
             setStep('SUMMARY');
         }
@@ -518,7 +574,10 @@ export default function App() {
     let popoverStyle = {};
     if (editingHoldIndex !== null) {
         const box = boxes[editingHoldIndex];
-        popoverStyle = { left: (SCREEN_WIDTH - 300) / 2, ...(box.y < 50 ? { top: `${box.y + box.h + 2}%` } : { bottom: `${100 - box.y + 2}%` }) };
+        popoverStyle = {
+            left: (SCREEN_WIDTH - 300) / 2,
+            ...(box.y < 50 ? { top: `${box.y + box.h + 2}%` } : { bottom: `${100 - box.y + 2}%` })
+        };
     }
 
     let cx = 50, cy = 50, rx = 40, ry = 40;
