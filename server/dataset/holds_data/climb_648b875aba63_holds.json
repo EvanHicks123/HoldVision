@@ -1,0 +1,292 @@
+[
+    {
+        "display_label": "Volume",
+        "h": 34.30627792600601,
+        "id": "21",
+        "label": "Volume",
+        "technique": "Trust your feet. Smear or palm press.",
+        "w": 66.24259746894634,
+        "x": 0,
+        "y": 0
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Sloper",
+        "h": 27.742694673084078,
+        "id": "0",
+        "label": "Sloper",
+        "technique": "Stay low! Keep your arms straight and rely on friction.",
+        "w": 29.583296195539848,
+        "x": 70.41670380446016,
+        "y": 68.12983921595982
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 18.28729992821103,
+        "id": "1",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 33.38399816442419,
+        "x": 38.98750991417617,
+        "y": 0
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 25.829838949536523,
+        "id": "7",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 17.14120693307705,
+        "x": 82.85879306692296,
+        "y": 0
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 14.283976479182167,
+        "id": "3",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 18.614149345922723,
+        "x": 13.434428260439917,
+        "y": 53.366155473012775
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 12.732953873891677,
+        "id": "4",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 16.601409104766038,
+        "x": 64.4683111281622,
+        "y": 15.07249256921193
+    },
+    {
+        "display_label": "Crimp",
+        "h": 8.054518321203808,
+        "id": "24",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 17.036198812817773,
+        "x": 16.734964885408914,
+        "y": 10.357882484557136
+    },
+    {
+        "display_label": "Jug",
+        "h": 7.875769478934151,
+        "id": "13",
+        "label": "Jug",
+        "technique": "Rest spot! Shake out your arms here.",
+        "w": 17.179076381461332,
+        "x": 16.63133833143446,
+        "y": 10.42284435696072
+    },
+    {
+        "display_label": "Pinch",
+        "h": 9.210931687127976,
+        "id": "2",
+        "label": "Pinch",
+        "technique": "Engage your thumb! Squeeze hard.",
+        "w": 13.02449867208168,
+        "x": 68.30382977843915,
+        "y": 62.7175770108662
+    },
+    {
+        "display_label": "Crimp",
+        "h": 8.241229587131077,
+        "id": "20",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 12.239760948867394,
+        "x": 37.41753795159557,
+        "y": 78.73397706046937
+    },
+    {
+        "display_label": "Pinch",
+        "h": 6.115474398173983,
+        "id": "17",
+        "label": "Jug",
+        "technique": "Engage your thumb! Squeeze hard.",
+        "w": 13.167115872499174,
+        "x": 61.525100627273474,
+        "y": 40.69600786481585
+    },
+    {
+        "display_label": "Crimp",
+        "h": 7.021903991699219,
+        "id": "9",
+        "label": "Jug",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 11.134604802207342,
+        "x": 39.14457048688616,
+        "y": 40.97841050889757
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 7.477589442379891,
+        "id": "27",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 10.216292123945934,
+        "x": 23.749893430679563,
+        "y": 0.07661997917152587
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 6.609476180303664,
+        "id": "10",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 10.179965710513807,
+        "x": 40.150564688223376,
+        "y": 22.330869947160995
+    },
+    {
+        "display_label": "Jug",
+        "h": 5.766160147530692,
+        "id": "26",
+        "label": "Jug",
+        "technique": "Rest spot! Shake out your arms here.",
+        "w": 10.80181182376922,
+        "x": 15.134419839848917,
+        "y": 31.042313954186817
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 6.032601613847036,
+        "id": "8",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 9.408829704163567,
+        "x": 30.438395908900667,
+        "y": 31.560028923882378
+    },
+    {
+        "display_label": "Crimp",
+        "h": 5.863580628046914,
+        "id": "12",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 9.220414943795987,
+        "x": 14.657563507241548,
+        "y": 0
+    },
+    {
+        "display_label": "Jug",
+        "h": 4.724711463564918,
+        "id": "6",
+        "label": "Jug",
+        "technique": "Rest spot! Shake out your arms here.",
+        "w": 9.896879095249075,
+        "x": 0.716183929847031,
+        "y": 44.141215369814915
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 5.765846797398159,
+        "id": "15",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 7.994071516410384,
+        "x": 34.45027265599165,
+        "y": 13.401632460336838
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 4.610800364660838,
+        "id": "5",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 9.649403889973957,
+        "x": 54.728125516699734,
+        "y": 34.36361040387835
+    },
+    {
+        "display_label": "AI: Jug \u2794 Logic: Crimp",
+        "h": 2.7956253006344753,
+        "id": "23",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 9.966378994088956,
+        "x": 70.94393129701967,
+        "y": 0
+    },
+    {
+        "display_label": "Crimp",
+        "h": 5.082484654017857,
+        "id": "14",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 5.249265640500992,
+        "x": 94.750734359499,
+        "y": 66.53897724454364
+    },
+    {
+        "display_label": "Crimp",
+        "h": 4.34440431140718,
+        "id": "28",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 6.038480082516948,
+        "x": 26.65755862281436,
+        "y": 16.617461613246373
+    },
+    {
+        "display_label": "AI: Pocket \u2794 Logic: Crimp",
+        "h": 4.152818710084945,
+        "id": "16",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 6.183127751426092,
+        "x": 47.10597689189608,
+        "y": 27.318999880836124
+    },
+    {
+        "display_label": "Crimp",
+        "h": 3.1923082139756946,
+        "id": "11",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 6.717677848048941,
+        "x": 71.5599504097429,
+        "y": 92.25203498961434
+    },
+    {
+        "display_label": "AI: Jug \u2794 Logic: Crimp",
+        "h": 3.027228703574529,
+        "id": "19",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 3.270319782236897,
+        "x": 24.699761123253555,
+        "y": 58.25360010540675
+    },
+    {
+        "display_label": "AI: Jug \u2794 Logic: Crimp",
+        "h": 2.3220516386486234,
+        "id": "18",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 3.048601100053737,
+        "x": 39.175431185929234,
+        "y": 37.235069274902344
+    },
+    {
+        "display_label": "AI: Jug \u2794 Logic: Crimp",
+        "h": 1.036083698272705,
+        "id": "22",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 6.34171622140067,
+        "x": 32.9363363760489,
+        "y": 0
+    },
+    {
+        "display_label": "AI: Jug \u2794 Logic: Crimp",
+        "h": 2.146845015268477,
+        "id": "25",
+        "label": "Crimp",
+        "technique": "Keep hips tight to the wall. Open-hand grip if possible.",
+        "w": 3.002045646546379,
+        "x": 22.461159519417574,
+        "y": 48.23050423273965
+    }
+]
